@@ -6,4 +6,4 @@
 
 * We also provide an additional implementation based on Sunspot (Groth16) eventhough it is not simulation extractable.
 
-* Refer to READMEs in the subdirectories for build and running instructions.
+* Use the Dockerfile in the subdirectories for building, and testing. Also, refer to README.md files for additional instructions.
