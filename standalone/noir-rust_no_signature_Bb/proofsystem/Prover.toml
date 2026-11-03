@@ -1,0 +1,26 @@
+data = ["10", "20", "30", "400", "50"]
+
+[[constraints]]
+attribute_type = "0"
+operation = "0"
+value = "10"
+
+[[constraints]]
+attribute_type = "0"
+operation = "1"
+value = "25"
+
+[[constraints]]
+attribute_type = "0"
+operation = "3"
+value = "10"
+
+[[constraints]]
+attribute_type = "0"
+operation = "4"
+value = "40"
+
+[[constraints]]
+attribute_type = "0"
+operation = "2"
+value = "99"

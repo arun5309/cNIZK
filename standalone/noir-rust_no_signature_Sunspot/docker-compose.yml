@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zk-sunspot-no-signature
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: ${PORT:-4000}
+      WORKER_COUNT: ${WORKER_COUNT:-4}
+    volumes:
+      - zk-sunspot-nosig-tmp:/app/tmp
+      - zk-sunspot-nosig-circuit:/app/proofsystem/target
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:4000/proof/verify -H 'Content-Type: application/json' -d '{\"proof\":\"\",\"vk\":\"\",\"publicInputs\":\"\"}'); [ \"$code\" = 200 ] || [ \"$code\" = 400 ]"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+volumes:
+  zk-sunspot-nosig-tmp:
+  zk-sunspot-nosig-circuit:

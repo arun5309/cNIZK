@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zk-provekit-outside-api
+    ports:
+      - "4000:4000"
+    environment:
+      SIGNING_KEY:  ${SIGNING_KEY}
+      PORT:         ${PORT:-4000}
+      WORKER_COUNT: ${WORKER_COUNT:-4}
+    volumes:
+      - zk-provekit-outside-tmp:/app/tmp
+      - zk-provekit-outside-keys:/app/keys
+      - zk-provekit-outside-circuit:/app/proofsystem/target
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "code=$(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:4000/proof/verify -H 'Content-Type: application/json' -d '{\"proof\":\"\",\"vk\":\"\",\"publicInputs\":\"\",\"message\":\"\",\"signature\":\"\",\"pub_key_x\":\"\",\"pub_key_y\":\"\"}'); [ \"$code\" = 200 ] || [ \"$code\" = 400 ]"]
+      interval: 30s
+      timeout:  10s
+      retries:  3
+      start_period: 120s
+
+volumes:
+  zk-provekit-outside-tmp:
+  zk-provekit-outside-keys:
+  zk-provekit-outside-circuit:

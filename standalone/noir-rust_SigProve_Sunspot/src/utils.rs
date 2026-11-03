@@ -1,0 +1,38 @@
+use std::{fs, path::{Path, PathBuf}};
+use tracing::error;
+
+pub struct DirCleanup(pub PathBuf);
+impl Drop for DirCleanup {
+    fn drop(&mut self) {
+        if let Err(e) = fs::remove_dir_all(&self.0) {
+            error!("failed to cleanup dir {:?}: {}", self.0, e);
+        }
+    }
+}
+
+pub fn bytes_to_toml(v: &[u8]) -> String {
+    format!("[{}]", v.iter().map(|x| format!("\"{}\"", x)).collect::<Vec<_>>().join(", "))
+}
+
+pub fn ints_to_toml(v: &[i64]) -> String {
+    format!("[{}]", v.iter().map(|x| format!("\"{}\"", x)).collect::<Vec<_>>().join(", "))
+}
+
+pub fn sunspot_bin(project_root: &Path) -> PathBuf {
+    if let Ok(path) = std::env::var("SUNSPOT_BIN") {
+        return PathBuf::from(path);
+    }
+
+    let local_bin = project_root
+        .parent()
+        .unwrap_or(project_root)
+        .join("tools")
+        .join("sunspot")
+        .join("sunspot");
+
+    if local_bin.exists() {
+        return local_bin;
+    }
+
+    PathBuf::from("sunspot")
+}

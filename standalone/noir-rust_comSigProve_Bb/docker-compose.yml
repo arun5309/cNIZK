@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  zk-barretenberg-outside:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zk-barretenberg-outside
+    env_file:
+      - .env
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      WORKER_COUNT: 4
+    restart: unless-stopped

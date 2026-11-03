@@ -1,0 +1,33 @@
+creation_timestamp = "1780139673"
+
+data = ["10", "20", "30", "400", "50"]
+
+randomness = ["0x04", "0x67", "0xd8", "0x59", "0x00", "0xf7", "0xbd", "0xbc", "0x0f", "0x7c", "0x50", "0xc9", "0xff", "0xe1", "0x99", "0xbd"]
+
+message = "0x16fb85dee2975892b3ef2f714c8396f805733f57b00743606c275d0244e8f9c9"
+
+[[constraints]]
+attribute_type = "0"
+operation      = "0"
+value          = "10"
+
+[[constraints]]
+attribute_type = "0"
+operation      = "2"
+value          = "25"
+
+[[constraints]]
+attribute_type = "0"
+operation      = "4"
+value          = "10"
+
+[[constraints]]
+attribute_type = "0"
+operation      = "5"
+value          = "40"
+
+[[constraints]]
+attribute_type = "0"
+operation      = "1"
+value          = "99"
+

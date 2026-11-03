@@ -1,0 +1,10 @@
+[package]
+name = "proofsystem"
+type = "bin"
+compiler_version = ">=1.0.0"
+
+[dependencies]
+# Same poseidon lib as inside-signature project — matches light-poseidon in Rust
+poseidon = { tag = "v0.2.6", git = "https://github.com/noir-lang/poseidon" }
+
+# No bignum/bigcurve/noir_ecdsa needed — signature verified OUTSIDE circuit
